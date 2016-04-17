@@ -1,0 +1,25 @@
+{% extends "CmfAdminBundle::layout.html.twig" %}
+
+{% set definition = resources.definition %}
+
+{% block content %}
+<div class="ui stackable two column grid">
+    <div class="column">
+        {{ headers.default(header|trans, configuration.vars.icon|default('list'), configuration.vars.subheader|default(null)|trans) }}
+    </div>
+    <div class="middle aligned column">
+        <div class="ui right floated buttons">
+            {% if definition.actionGroups.main is defined and definition.getActions('main')|length > 0 %}
+                {% for action in definition.getActions('main') %}
+                    {{ sylius_grid_render_action(resources, action, null) }}
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div clas="col-md-12">
+        {{ sylius_grid_render(resources, '@CmfAdmin/_grid.html.twig') }}
+    </div>
+</div>
+{% endblock %}

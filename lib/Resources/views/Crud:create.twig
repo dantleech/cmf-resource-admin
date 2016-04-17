@@ -1,0 +1,16 @@
+{% extends 'CmfAdminBundle::layout.html.twig' %}
+
+{% block content %}
+{{ form_start(form, {'action': path(configuration.getRouteName('create')), 'attr': {'class': 'ui form', 'novalidate': 'novalidate'}}) }}
+    <div class="ui segment">
+        <input type="hidden" name="_method" value="POST" />
+        {% if configuration.vars.templates.form is defined %}
+            {% include configuration.vars.templates.form %}
+        {% else %}
+            {{ form_widget(form) }}
+        {% endif %}
+        {% include 'CmfAdminBundle:Form:_saveChanges.html.twig' with {'cancel_path': path(configuration.getRouteName('index'))} %}
+    </div>
+{{ form_row(form._token) }}
+{{ form_end(form, {'render_rest': false}) }}
+{% endblock %}
