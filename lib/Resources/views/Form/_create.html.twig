@@ -1,0 +1,7 @@
+<div class="ui basic segment">
+    <div class="ui buttons">
+        <button class="btn btn-primary" type="submit"><i class="plus icon"></i>{{- 'sylius.ui.create'|trans -}}</button>
+        <div class="or" data-text="{{ 'sylius.ui.or'|trans }}"></div>
+        {% include '@CmfAdmin/Form/_cancelButton.html.twig' with {'path': cancel_path|default(null)} %}
+    </div>
+</div>

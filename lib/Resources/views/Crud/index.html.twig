@@ -1,6 +1,13 @@
-{% extends "CmfAdminBundle::layout.html.twig" %}
+{% extends cmf_admin_layout_template %}
+
+{% import 'CmfAdminBundle:Macro:headers.html.twig' as headers %}
 
 {% set definition = resources.definition %}
+{% set data = resources.data %}
+
+{% set header = configuration.vars.header|default(metadata.applicationName~'.ui.'~metadata.pluralName) %}
+
+{% block title %}{{ parent() }} {{ header|trans }}{% endblock %}
 
 {% block content %}
 <div class="ui stackable two column grid">
@@ -17,9 +24,6 @@
         </div>
     </div>
 </div>
-<div class="row">
-    <div clas="col-md-12">
-        {{ sylius_grid_render(resources, '@CmfAdmin/_grid.html.twig') }}
-    </div>
-</div>
+
+{{ sylius_grid_render(resources, 'CmfAdminBundle:Crud:_grid.html.twig') }}
 {% endblock %}

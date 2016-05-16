@@ -9,7 +9,7 @@ use Sylius\Component\Resource\Model\ResourceInterface;
 /**
  * @PHPCR\Document(referenceable=true)
  */
-class Page implements ResourceInterface
+class Post implements ResourceInterface
 {
     /**
      * @PHPCR\Field(type="string")
@@ -20,11 +20,6 @@ class Page implements ResourceInterface
      * @PHPCR\Field(type="string", nullable=true)
      */
     protected $content;
-
-    /**
-     * @PHPCR\Nodename()
-     */
-    protected $name;
 
     /**
      * @PHPCR\Id()
@@ -60,7 +55,6 @@ class Page implements ResourceInterface
     public function setTitle($title)
     {
         $this->title = $title;
-        $this->name = $title;
     }
 
     public function getContent()
@@ -99,3 +93,4 @@ class Page implements ResourceInterface
     }
     
 }
+

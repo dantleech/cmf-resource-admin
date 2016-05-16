@@ -1,0 +1,39 @@
+div.cmf-header {
+    height: 65px;
+    padding: 5px;
+}
+
+div.cmf-navigation {
+    background-color: #444;
+    color: #efe;
+    border-style: none none solid none;
+    border-width: 5px;
+    border-color: #eee;
+}
+
+
+div.cmf-navigation a {
+    color: #efe;
+}
+
+div.cmf-navigation div {
+    text-align: center;
+}
+
+div.cmf-navigation div.active {
+    background-color: #eee;
+}
+
+div.cmf-navigation div.active a {
+    color: #444;
+}
+
+div.cmf-navigation.level2 {
+    background-color: #464;
+    color: #efe;
+    border-color: #aca;
+}
+
+div.cmf-navigation.level2 div.active {
+    background-color: #aca;
+}

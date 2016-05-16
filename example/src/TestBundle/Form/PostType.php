@@ -5,7 +5,7 @@ namespace Symfony\Cmf\Bundle\AdminBundle\Example\TestBundle\Form;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
 
-class PageType extends AbstractType
+class PostType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -16,12 +16,13 @@ class PageType extends AbstractType
                 'rows' => 8,
             ]
         ]);
+
         $builder->add('published', 'checkbox');
         $builder->add('parent', 'phpcrodm_parent_path');
     }
 
     public function getName()
     {
-        return 'acme_page';
+        return 'acme_post';
     }
 }

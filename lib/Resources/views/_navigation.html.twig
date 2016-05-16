@@ -1,0 +1,18 @@
+
+{% macro cmf_menu_tier(tier, level) %}
+    {% import _self as cmf_menu %}
+    <div class="cmf-navigation row level{{ level }}">
+        {% for item in tier %}
+        <div class="col-md-1 {{ item.getAttribute('current') or item.getAttribute('current-ancestor') ? 'active' : '' }}">
+            <a href="{{ item.uri }}">{{ item.label }}</a>
+        </div>
+        {% endfor %}
+    </div>
+{% endmacro %}
+{% import _self as cmf_menu %}
+
+{% set menuTiers = cmf_admin_menu_tiers('main') %}
+
+{% for level, menuTier in menuTiers %}
+    {{ cmf_menu.cmf_menu_tier(menuTier, level + 1) }}
+{% endfor %}

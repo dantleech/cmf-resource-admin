@@ -6,9 +6,9 @@
 {% set data = grid.data %}
 
 {% if definition.filters|length > 0 %}
-    <div class="ui segment">
+    <div class="">
         <form method="get" action="{{ path(grid.requestConfiguration.getRouteName('index')) }}" class="ui form">
-            <div class="two fields">
+            <div class="col-md-3">
             {% for filter in definition.filters %}
                 {{ sylius_grid_render_filter(grid, filter) }}
 
@@ -36,7 +36,7 @@
                     </th>
                 {% endfor %}
                 {% if definition.actionGroups.item is defined and definition.getActions('item')|length > 0 %}
-                    <th>{{ 'cmf.ui.actions'|trans }}</th>
+                    <th>{{ 'sylius.ui.actions'|trans }}</th>
                 {% endif %}
             </tr>
             </thead>
@@ -60,7 +60,7 @@
             </tbody>
         </table>
     {% else %}
-        {{ messages.info('cmf.ui.no_results_to_display'|trans) }}
+        {{ messages.info('sylius.ui.no_results_to_display'|trans) }}
     {% endif %}
     {{ pagination.render(data) }}
 </div>

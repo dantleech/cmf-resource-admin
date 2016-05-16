@@ -1,6 +1,14 @@
-{% extends 'CmfAdminBundle::layout.html.twig' %}
+{% extends cmf_admin_layout_template %}
+
+{% import 'CmfAdminBundle:Macro:headers.html.twig' as headers %}
+
+{% set header = configuration.vars.header|default(metadata.applicationName~'.ui.edit_'~metadata.name) %}
+
+{% block title %}{{ parent() }} {{ header|trans }}{% endblock %}
 
 {% block content %}
+{{ headers.default(header|trans, configuration.vars.icon|default('pencil'), configuration.vars.subheader|default(null)|trans) }}
+
 {{ form_start(form, {'action': path(configuration.getRouteName('update'), {'id': resource.id}), 'attr': {'class': 'ui form', 'novalidate': 'novalidate'}}) }}
     <div class="ui segment">
         <input type="hidden" name="_method" value="PUT" />
