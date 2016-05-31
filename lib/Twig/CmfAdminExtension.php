@@ -41,7 +41,7 @@ class CmfAdminExtension extends Twig_Extension implements Twig_Extension_Globals
     public function getFunctions()
     {
         return array(
-            new \Twig_Function('cmf_admin_menu_tiers', function ($name) { return $this->getMenuTiers($name); }),
+            'cmf_admin_menu_tiers' => new \Twig_Function_Method($this, 'getMenuTiers'),
         );
     }
 
@@ -101,6 +101,7 @@ class CmfAdminExtension extends Twig_Extension implements Twig_Extension_Globals
         $currentItem = null;
         if ($this->matcher->isCurrent($item)) {
             $item->setAttribute('current', true);
+            
             return $item;
         }
 

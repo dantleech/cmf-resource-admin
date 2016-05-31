@@ -26,6 +26,14 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('default_layout_template')
                     ->defaultValue('CmfAdminBundle::layout.html.twig')
                 ->end()
+                ->arrayNode('menu')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->variableNode('items')
+                            ->defaultValue([])
+                        ->end()
+                    ->end()
+                ->end()
             ->end();
 
         return $treeBuilder;

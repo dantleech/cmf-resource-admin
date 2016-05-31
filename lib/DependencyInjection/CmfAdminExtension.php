@@ -21,6 +21,9 @@ class CmfAdminExtension extends Extension
         // set container parameters
         $container->setParameter('cmf_admin.default_layout_template', $config['default_layout_template']);
 
+        // set the main menu items
+        $container->setParameter('cmf_admin.menu.items', $config['menu']['items']);
+
         // TODO: Handle this in a better way? (or make it an explicit config option).
         //       .. maybe use factories
         if (interface_exists(DocumentManagerInterface::class)) {
@@ -29,5 +32,6 @@ class CmfAdminExtension extends Extension
 
         $loader->load('twig.xml');
         $loader->load('menu.xml');
+        $loader->load('controllers.xml');
     }
 }

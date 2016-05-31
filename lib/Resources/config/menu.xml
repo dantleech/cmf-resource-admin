@@ -9,8 +9,16 @@
         <service id="cmf_admin.menu.resource_builder" class="Symfony\Cmf\Bundle\AdminBundle\Menu\ResourceBuilder">
             <argument type="service" id="knp_menu.factory" />
             <argument type="service" id="sylius.resource_registry" />
-            <tag name="knp_menu.menu_builder" alias="main" method="buildMain" />
+            <tag name="knp_menu.menu_builder" alias="resource" method="buildMain" />
         </service>
+
+        <service id="cmf_admin.menu.composite_builder" class="Symfony\Cmf\Bundle\AdminBundle\Menu\CompositeBuilder">
+            <argument type="service" id="knp_menu.factory" />
+            <argument type="service" id="knp_menu.menu_provider" />
+            <argument>%cmf_admin.menu.items%</argument>
+            <tag name="knp_menu.menu_builder" alias="main" method="build" />
+        </service>
+
     </services>
 
 </container>

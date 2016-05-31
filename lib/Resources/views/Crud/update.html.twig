@@ -2,12 +2,24 @@
 
 {% import 'CmfAdminBundle:Macro:headers.html.twig' as headers %}
 
+
 {% set header = configuration.vars.header|default(metadata.applicationName~'.ui.edit_'~metadata.name) %}
 
 {% block title %}{{ parent() }} {{ header|trans }}{% endblock %}
 
 {% block content %}
 {{ headers.default(header|trans, configuration.vars.icon|default('pencil'), configuration.vars.subheader|default(null)|trans) }}
+
+{% if resource.getRoutes is defined %}
+    <div class="pull-right">
+        <div class="btn-group">
+            <div class="btn"><b>URI </b></div>
+            <div class="btn btn-default" href="{{ path(resource) }}">{{ path(resource) }}</div>
+            <a target="new" class="btn btn-default" href="{{ path(resource) }}"><span class="glyphicon glyphicon-share-alt"></span></a>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+{% endif %}
 
 {{ form_start(form, {'action': path(configuration.getRouteName('update'), {'id': resource.id}), 'attr': {'class': 'ui form', 'novalidate': 'novalidate'}}) }}
     <div class="ui segment">

@@ -13,7 +13,8 @@
         "sylius/resource-bundle": "~0.17",
         "doctrine/data-fixtures": "^1.1",
         "sylius/grid-bundle": "@dev",
-        "knplabs/knp-menu-bundle": "^2.1"
+        "knplabs/knp-menu-bundle": "^2.1",
+        "twig/twig": "^1.0"
     },
     "require-dev": {
         "doctrine/phpcr-odm": "^1.3",

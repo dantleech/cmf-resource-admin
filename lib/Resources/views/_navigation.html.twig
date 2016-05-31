@@ -1,18 +1,26 @@
-
-{% macro cmf_menu_tier(tier, level) %}
+{% macro cmf_menu(items, level) %}
     {% import _self as cmf_menu %}
-    <div class="cmf-navigation row level{{ level }}">
-        {% for item in tier %}
-        <div class="col-md-1 {{ item.getAttribute('current') or item.getAttribute('current-ancestor') ? 'active' : '' }}">
-            <a href="{{ item.uri }}">{{ item.label }}</a>
-        </div>
-        {% endfor %}
-    </div>
+
+    {% for item in items %}
+
+        <li class="dropdown {{ item.getAttribute('current') or item.getAttribute('current-ancestor') ? 'active' : '' }}">
+            {% if item.hasChildren %}
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ item.label }} <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    {{ cmf_menu.cmf_menu(item) }}
+                </ul>
+            {% else %}
+                <a href="{{ item.uri }}">{{ item.label }}</a>
+            {% endif %}
+        </li>
+
+    {% endfor %}
 {% endmacro %}
 {% import _self as cmf_menu %}
 
-{% set menuTiers = cmf_admin_menu_tiers('main') %}
 
-{% for level, menuTier in menuTiers %}
-    {{ cmf_menu.cmf_menu_tier(menuTier, level + 1) }}
-{% endfor %}
+<nav class="navbar navbar-default">
+    <ul class="nav navbar-nav">
+        {{ cmf_menu.cmf_menu(knp_menu_get('main')) }}
+    </ul>
+</nav>

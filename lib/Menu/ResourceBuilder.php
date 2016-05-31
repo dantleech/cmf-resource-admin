@@ -6,6 +6,7 @@ use Sylius\Component\Resource\Metadata\Registry;
 use Knp\Menu\FactoryInterface;
 use Sylius\Component\Resource\Metadata\Metadata;
 use Doctrine\Common\Inflector\Inflector;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ResourceBuilder
 {
@@ -23,7 +24,22 @@ class ResourceBuilder
 
     public function buildMain(array $options)
     {
-        $menu = $this->factory->createItem('root');
+        $defaultRoute = null;
+
+        // use the first route as the default for the main "Resources" item
+        if (null === $defaultRoute) {
+            foreach ($this->registry->getAll() as $metadata) {
+                $defaultRoute = $this->getRouteName($metadata, 'index');
+                break;
+            }
+        }
+
+        $menu = $this->factory->createItem(
+            'Resources',
+            [
+                'route' => 'cmf_admin_resource_dashboard'
+            ]
+        );
 
         foreach ($this->registry->getAll() as $metadata) {
             $key = ucfirst(Inflector::pluralize($metadata->getHumanizedName()));
@@ -33,19 +49,6 @@ class ResourceBuilder
                 [
                     // TODO: How to get the route name?
                     'route' => $this->getRouteName($metadata, 'index')
-                ]
-            );
-
-            $menu[$key]->addChild(
-                'List',
-                [
-                    'route' => $this->getRouteName($metadata, 'index'),
-                ]
-            );
-            $menu[$key]->addChild(
-                'Create', 
-                [
-                    'route' => $this->getRouteName($metadata, 'create'),
                 ]
             );
         }
