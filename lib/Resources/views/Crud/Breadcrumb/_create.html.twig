@@ -1,0 +1,9 @@
+{% import 'CmfAdminBundle:Crud/Macro:breadcrumb.html.twig' as breadcrumb %}
+
+{% set breadcrumbs = [
+        { label: (metadata.applicationName~'.ui.'~metadata.pluralName)|trans, url: path(configuration.getRouteName('index'), configuration.vars.route.parameters|default({})) },
+        { label: 'sylius.ui.new'|trans }
+    ]
+%}
+
+{{ breadcrumb.crumble(breadcrumbs) }}

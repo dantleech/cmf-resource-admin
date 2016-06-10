@@ -1,27 +1,20 @@
 {% extends cmf_admin_layout_template %}
 
-{% import 'CmfAdminBundle:Macro:headers.html.twig' as headers %}
-
+{% import 'SyliusUiBundle:Macro:headers.html.twig' as headers %}
+{% import 'SyliusUiBundle:Macro:buttons.html.twig' as buttons %}
 
 {% set header = configuration.vars.header|default(metadata.applicationName~'.ui.edit_'~metadata.name) %}
 
 {% block title %}{{ parent() }} {{ header|trans }}{% endblock %}
 
+{# form_theme form 'SyliusUiBundle:Form:theme.html.twig' #}
+
 {% block content %}
 {{ headers.default(header|trans, configuration.vars.icon|default('pencil'), configuration.vars.subheader|default(null)|trans) }}
 
-{% if resource.getRoutes is defined %}
-    <div class="pull-right">
-        <div class="btn-group">
-            <div class="btn"><b>URI </b></div>
-            <div class="btn btn-default" href="{{ path(resource) }}">{{ path(resource) }}</div>
-            <a target="new" class="btn btn-default" href="{{ path(resource) }}"><span class="glyphicon glyphicon-share-alt"></span></a>
-        </div>
-    </div>
-    <div class="clearfix"></div>
-{% endif %}
+{% include configuration.vars.templates.breadcrumb|default('CmfAdminBundle:Crud/Breadcrumb:_update.html.twig') %}
 
-{{ form_start(form, {'action': path(configuration.getRouteName('update'), {'id': resource.id}), 'attr': {'class': 'ui form', 'novalidate': 'novalidate'}}) }}
+{{ form_start(form, {'action': path(configuration.getRouteName('update'), configuration.vars.route.parameters|default({ 'id': resource.id })), 'attr': {'class': 'ui form', 'novalidate': 'novalidate'}}) }}
     <div class="ui segment">
         <input type="hidden" name="_method" value="PUT" />
         {% if configuration.vars.templates.form is defined %}
@@ -29,7 +22,7 @@
         {% else %}
             {{ form_widget(form) }}
         {% endif %}
-        {% include 'CmfAdminBundle:Form:_saveChanges.html.twig' with {'cancel_path': path(configuration.getRouteName('index'))} %}
+        {% include 'SyliusUiBundle:Form:_saveChanges.html.twig' with {'cancel_path': path(configuration.getRouteName('index'), configuration.vars.route.parameters|default({}))} %}
     </div>
 {{ form_row(form._token) }}
 {{ form_end(form, {'render_rest': false}) }}

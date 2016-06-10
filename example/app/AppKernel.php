@@ -21,6 +21,7 @@ class AppKernel extends Kernel
             // Symfony fundamentals
             new \Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new \Symfony\Bundle\TwigBundle\TwigBundle(),
+            new \Symfony\Bundle\SecurityBundle\SecurityBundle(),
 
             // Doctrine base and PHPCR
             new \Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
@@ -30,6 +31,7 @@ class AppKernel extends Kernel
             new \FOS\RestBundle\FOSRestBundle(),
             new \JMS\SerializerBundle\JMSSerializerBundle($this),
             new \Sylius\Bundle\ResourceBundle\SyliusResourceBundle(),
+            new \Sylius\Bundle\UiBundle\SyliusUiBundle(),
             new \WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
             new \Bazinga\Bundle\HateoasBundle\BazingaHateoasBundle(),
             new \Symfony\Bundle\WebProfilerBundle\WebProfilerBundle(),
@@ -43,6 +45,8 @@ class AppKernel extends Kernel
             new \Symfony\Cmf\Bundle\AdminBundle\CmfAdminBundle(),
 
             new \Knp\Bundle\MenuBundle\KnpMenuBundle(),
+
+            new \winzou\Bundle\StateMachineBundle\winzouStateMachineBundle(),
         ];
     }
 
@@ -84,6 +88,19 @@ EOT
             'csrf_protection' => true,
         ]);
 
+        $container->loadFromExtension('security', [
+            'providers' => [
+                'in_memory' => [
+                    'memory' => null,
+                ],
+            ],
+            'firewalls' => [
+                'main' => [
+                    'anonymous' => null,
+                ],
+            ],
+        ]);
+
         $container->loadFromExtension('twig', [
             'debug' => true,
             'strict_variables' => true,
@@ -120,6 +137,7 @@ EOT
         ]);
 
         $container->loadFromExtension('sylius_resource', [
+            'drivers' => [ 'doctrine/phpcr-odm' ],
             'resources' => [
                 'acme.post' => [
                     'driver' => 'doctrine/phpcr-odm',
@@ -130,8 +148,8 @@ EOT
                         //],
                     ],
                     'options' => [
-                        'default_parent_path' => '/cms/foobar/bar/bar',
-                        'autocreate' => false,
+                        'parent_path_default' => '/cms/foobar/bar/bar',
+                        'parent_path_autocreate' => false,
                     ],
                 ],
                 'acme.page' => [
@@ -143,8 +161,8 @@ EOT
                         //],
                     ],
                     'options' => [
-                        'default_parent_path' => '/cms/pages',
-                        'autocreate' => true,
+                        'parent_path_default' => '/cms/pages',
+                        'parent_path_autocreate' => true,
                     ],
                 ],
             ],

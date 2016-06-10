@@ -1,6 +1,6 @@
 {% extends cmf_admin_layout_template %}
 
-{% import 'CmfAdminBundle:Macro:headers.html.twig' as headers %}
+{% import 'SyliusUiBundle:Macro:headers.html.twig' as headers %}
 
 {% set definition = resources.definition %}
 {% set data = resources.data %}
@@ -13,6 +13,8 @@
 <div class="ui stackable two column grid">
     <div class="column">
         {{ headers.default(header|trans, configuration.vars.icon|default('list'), configuration.vars.subheader|default(null)|trans) }}
+
+        {% include configuration.vars.templates.breadcrumb|default('CmfAdminBundle:Crud/Breadcrumb:_index.html.twig') %}
     </div>
     <div class="middle aligned column">
         <div class="ui right floated buttons">
@@ -26,4 +28,5 @@
 </div>
 
 {{ sylius_grid_render(resources, 'CmfAdminBundle:Crud:_grid.html.twig') }}
+
 {% endblock %}

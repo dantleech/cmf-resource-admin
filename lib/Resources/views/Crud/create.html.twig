@@ -1,6 +1,6 @@
 {% extends cmf_admin_layout_template %}
 
-{% import 'CmfAdminBundle:Macro:headers.html.twig' as headers %}
+{% import 'SyliusUiBundle:Macro:headers.html.twig' as headers %}
 
 {% set header = configuration.vars.header|default(metadata.applicationName~'.ui.new_'~metadata.name) %}
 
@@ -11,14 +11,16 @@
 {% block content %}
 {{ headers.default(header|trans, configuration.vars.icon|default('plus'), configuration.vars.subheader|default(null)|trans) }}
 
-{{ form_start(form, {'action': path(configuration.getRouteName('create'), configuration.getFactoryArguments), 'attr': {'class': 'ui form', 'novalidate': 'novalidate'}}) }}
+{% include configuration.vars.templates.breadcrumb|default('CmfAdminBundle:Crud/Breadcrumb:_create.html.twig') %}
+
+{{ form_start(form, {'action': path(configuration.vars.route.name|default(configuration.getRouteName('create')), configuration.vars.route.parameters|default({})), 'attr': {'class': 'ui form', 'novalidate': 'novalidate'}}) }}
     <div class="ui segment">
         {% if configuration.vars.templates.form is defined %}
             {% include configuration.vars.templates.form %}
         {% else %}
             {{ form_widget(form) }}
         {% endif %}
-        {% include 'CmfAdminBundle:Form:_create.html.twig' with {'cancel_path': path(configuration.getRouteName('index'))} %}
+        {% include 'SyliusUiBundle:Form:_create.html.twig' with {'cancel_path': path(configuration.getRouteName('index'), configuration.vars.route.parameters|default({}))} %}
     </div>
 {{ form_row(form._token) }}
 {{ form_end(form, {'render_rest': false}) }}
