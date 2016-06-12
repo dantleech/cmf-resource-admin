@@ -18,7 +18,6 @@ class PostType extends AbstractType
         ]);
 
         $builder->add('published', 'checkbox');
-        $builder->add('parent', 'phpcrodm_parent_path');
     }
 
     public function getName()

@@ -55,8 +55,10 @@ class AppKernel extends Kernel
         $routes->import(<<<'EOT'
 alias: acme.page
 grid: acme_page
+redirect: update
 templates: CmfAdminBundle:Crud
 except: [ 'show ']
+form: \Symfony\Cmf\Bundle\AdminBundle\Example\TestBundle\Form\PageType
 EOT
         , '/admin', 'sylius.resource');
 
@@ -64,6 +66,7 @@ EOT
 alias: acme.post
 grid: acme_post
 templates: CmfAdminBundle:Crud
+redirect: update
 except: [ 'show ']
 EOT
         , '/admin', 'sylius.resource');
@@ -78,6 +81,9 @@ EOT
     {
         $container->loadFromExtension('framework', [
             'session' => [],
+            'translator' => [
+                'fallback' => 'en',
+            ],
             'secret' => '12345',
             'templating' => [
                 'engines' => 'twig',
@@ -143,26 +149,30 @@ EOT
                     'driver' => 'doctrine/phpcr-odm',
                     'classes' => [
                         'model' => Post::class,
-                        //'form' => [
-                            //'default' => PostType::class,
-                        //],
                     ],
                     'options' => [
-                        'parent_path_default' => '/cms/foobar/bar/bar',
-                        'parent_path_autocreate' => false,
+                        'parent_path_default' => '/cms/posts',
+                        'parent_path_autocreate' => true,
                     ],
                 ],
                 'acme.page' => [
                     'driver' => 'doctrine/phpcr-odm',
                     'classes' => [
                         'model' => Page::class,
-                        //'form' => [
-                            //'default' => PageType::class,
-                        //],
                     ],
                     'options' => [
                         'parent_path_default' => '/cms/pages',
                         'parent_path_autocreate' => true,
+                    ],
+                ],
+            ],
+        ]);
+        
+        $container->loadFromExtension('cmf_admin', [
+            'menu' => [
+                'items' => [
+                    'resource' => [
+                        'type' => 'reference',
                     ],
                 ],
             ],

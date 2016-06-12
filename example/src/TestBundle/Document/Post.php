@@ -17,6 +17,11 @@ class Post implements ResourceInterface
     protected $title;
 
     /**
+     * @PHPCR\Nodename()
+     */
+    protected $name;
+
+    /**
      * @PHPCR\Field(type="string", nullable=true)
      */
     protected $content;
@@ -55,6 +60,7 @@ class Post implements ResourceInterface
     public function setTitle($title)
     {
         $this->title = $title;
+        $this->name = $title;
     }
 
     public function getContent()
