@@ -3,24 +3,21 @@
 
     {% for item in items %}
 
-        <li class="dropdown {{ item.getAttribute('current') or item.getAttribute('current-ancestor') ? 'active' : '' }}">
             {% if item.hasChildren %}
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ item.label }} <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    {{ cmf_menu.cmf_menu(item) }}
-                </ul>
+                <div class="item">
+                    <div class="header">{{ item.label|trans }}</div>
+                    <div class="menu">
+                        {{ cmf_menu.cmf_menu(item) }}
+                    </div>
+                </div>
             {% else %}
-                <a href="{{ item.uri }}">{{ item.label }}</a>
+                <a class="item" href="{{ item.uri }}">
+                    {{ item.label|trans }}
+                </a>
             {% endif %}
-        </li>
 
     {% endfor %}
 {% endmacro %}
 {% import _self as cmf_menu %}
 
-
-<nav class="navbar navbar-default">
-    <ul class="nav navbar-nav">
-        {{ cmf_menu.cmf_menu(knp_menu_get('main')) }}
-    </ul>
-</nav>
+{{ cmf_menu.cmf_menu(knp_menu_get('cmf_main')) }}

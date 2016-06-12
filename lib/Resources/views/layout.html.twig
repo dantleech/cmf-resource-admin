@@ -1,35 +1,28 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}
-            {# include 'SyliusUiBundle::_stylesheets.html.twig' with {'path': 'assets/admin/css/style.css'} #}
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-            <link rel="stylesheet" href="{{ asset('bundles/cmfadmin/css/main.css') }}">
-        {% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
-        {% block body %}
-        <div class="container-fluid">
-            <div class="row cmf-header">
-                <img height=50 class="ui avatar image" src="{{ asset('bundles/cmfadmin/img/logo.png') }}">
-                <img height=50 class="ui avatar image" src="{{ asset('bundles/cmfadmin/img/cmf-logo.png') }}">
-            </div>
-
-            {{ include('CmfAdminBundle::_navigation.html.twig') }}
-
-            {% block content %}
-            {% endblock %}
+{% extends "SyliusUiBundle:Layout:sidebar.html.twig" %}
+{% block stylesheets %}
+    {% include 'SyliusUiBundle::_stylesheets.html.twig' with {'path': 'assets/admin/css/style.css'} %}
+{% endblock %}
+{% block topbar %}         
+    <a class="icon item" id="sidebar-toggle">
+        <i class="sidebar icon"></i>    
+    </a>
+    <div class="ui right floated simple dropdown item">
+        <img class="ui avatar image" src="{{ asset('assets/admin/img/avatar.png') }}">
+        <span>Fake User</span>
+        <i class="dropdown icon"></i>   
+        <div class="menu"> 
+            <a href="/logout" class="item">
+                <i class="sign out icon"></i>   
+                Logout
+            </a>           
         </div>
-        {% endblock %}
-        {% block javascripts %}
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-        {% endblock %}
-    </body>
-</html>
+    </div>
+{% endblock %}
+{% block sidebar %}
+    <a class="item" href="/"><b>Symfony CMF</b></a>
+    {% include "CmfAdminBundle::_navigation.html.twig" %}:
+{% endblock %}
 
-
-
+{% block javascripts %}
+    {% include 'SyliusUiBundle::_javascripts.html.twig' with {'path': 'assets/admin/js/app.js'} %}
+{% endblock %}

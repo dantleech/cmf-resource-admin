@@ -36,9 +36,7 @@ class ResourceBuilder
 
         $menu = $this->factory->createItem(
             'Resources',
-            [
-                'route' => 'cmf_admin_resource_dashboard'
-            ]
+            []
         );
 
         foreach ($this->registry->getAll() as $metadata) {
@@ -47,7 +45,7 @@ class ResourceBuilder
             $menu->addChild(
                 $key,
                 [
-                    // TODO: How to get the route name?
+                    // TODO: How to get the route name? from the request configuration ..
                     'route' => $this->getRouteName($metadata, 'index')
                 ]
             );

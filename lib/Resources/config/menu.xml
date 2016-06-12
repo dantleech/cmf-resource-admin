@@ -16,7 +16,7 @@
             <argument type="service" id="knp_menu.factory" />
             <argument type="service" id="knp_menu.menu_provider" />
             <argument>%cmf_admin.menu.items%</argument>
-            <tag name="knp_menu.menu_builder" alias="main" method="build" />
+            <tag name="knp_menu.menu_builder" alias="cmf_main" method="build" />
         </service>
 
     </services>
